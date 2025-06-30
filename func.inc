@@ -34,8 +34,9 @@ function START_HTML(){
 ###
 
 function DAYS_IN_MONTH() {
-    year=$(gdate -d "$DT" +%Y)
-    month=$1
+    year=$(gdate -d "$1" +%Y)
+    month=$(gdate -d "$1" +%m)
+    month=${month#"0"} # удаляем ведущий 0
     ##### проверка на високосный год #####
     [[ ( $((year % 4)) == 0 && $((year % 100)) != 0 ) || ( $((year % 100)) == 0 && $((year % 400)) == 0 ) ]] && vis=1
     ##### учитываем февраль #####
