@@ -70,7 +70,7 @@ for ((initMonth=1;initMonth<=12;initMonth++)); do
     
     DT="${year}-${curMonth}-${curDay}"
     day=$(gdate -d "$DT" +%u)
-    daysInMonth=$(DAYS_IN_MONTH $initMonth)
+    daysInMonth=$(DAYS_IN_MONTH $DT)
     curDay=${curDay#"0"} # удаляем ведущий 0
 
     ### вывод таблицы
