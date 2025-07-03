@@ -40,9 +40,7 @@ if [[ (($# < 1)) || "${outFile##*.}" != "html" ]]; then
     printf "%s\n" "Некорректный формат файла или он отстуствует. Вывод осуществляется в $outFile"
 fi
 
-
-includeFile="./func.inc"
-source $includeFile || { printf "%s\n" "$includeFile include error"; exit 1; }
+source "func.inc" || { printf "%s\n" "func.inc include error"; exit 1; }
 
 CHECK_FILE "$outFile"
 START_HTML "$outFile"
