@@ -18,8 +18,8 @@ declare -A monthARR=([1]="Январь" [2]="Февраль" [3]="Март" [4]=
 ### функция для работы с файлами
 function CHECK_FILE(){
     local FILE=$1
-    [[ -f $FILE ]] && rm $FILE
-    touch $FILE
+    [[ -f "$FILE" ]] && rm "$FILE"
+    touch "$FILE"
 }
 
 ### html начало файла
@@ -29,20 +29,20 @@ function START_HTML(){
     <meta charset="UTF-8">
     <title>calendar</title>
     </head>
-    <body>' >> $1
+    <body>' >> "$1"
 }
 ###
 
 function DAYS_IN_MONTH() {
-    year=$(gdate -d "$1" +%Y)
-    month=$(gdate -d "$1" +%m)
+    year=$(date -d "$1" +%Y)
+    month=$(date -d "$1" +%m)
     month=${month#"0"} # удаляем ведущий 0
     ##### проверка на високосный год #####
     [[ ( $((year % 4)) == 0 && $((year % 100)) != 0 ) || ( $((year % 100)) == 0 && $((year % 400)) == 0 ) ]] && vis=1
     ##### учитываем февраль #####
     ((month == 2)) && febr=$((2-vis))
     ############ первая половина вычисляет для месяцев 1-7 ############ вторая вычисляет для месяцев 8-12 #
-    daysInMonth=$(( (month % 2 + 30) - (month / 8) * ((month % 2 + 30)) + (month / 8) * (31 - month % 2) - febr ))
+    daysInMonth=$(( (month % 2 + 30) - (month / 8) * (month % 2 + 30) + (month / 8) * (31 - month % 2) - febr ))
     ### ((month / 8)) даст _0_ для месяцев 1-7 и _1_ для месяцев 8-12;
     ### для месяцев 1-7 работает только выражение ((month % 2 + 30)). остальное только для того, чтобы получить 0 для месяцев 8-12
     ### для месяцев 8-12 работает только выражение ((31 - month % 2)). остальное только для того, чтобы получить 0 для месяцев 1-7
@@ -53,7 +53,7 @@ function REV(){
     REV=${1:-""}
     CHAR_ELEM=${#REV}
     while [[ $CHAR_ELEM -ge 0 ]]; do
-        printf "${REV:$CHAR_ELEM:1}"
+        printf "%s" "${REV:$CHAR_ELEM:1}"
         ((CHAR_ELEM--))
     done
 }
@@ -61,12 +61,12 @@ function REV(){
 function DEC2BIN(){ 
     num=$1
     op=2;
-    quo=$(( $num / $op)); rem=$(( $num % $op));
+    quo=$(( num / op)); rem=$(( num % op));
     remarray=();
     remarray+=("$rem"); 
         until [[ $quo -eq 0 ]]; do
-            num=$quo; quo=$(( $num / $op));
-            rem=$(( $num % $op)); remarray+="$rem";
+            num=$quo; quo=$(( num / op));
+            rem=$(( num % op)); remarray+="$rem";
         done
     binary=$(REV "${remarray[@]}");
     printf "%03i\n" "$binary";
