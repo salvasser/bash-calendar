@@ -1,6 +1,6 @@
 # bash-calendar
 
-<img width="879" alt="Снимок экрана 2025-07-01 в 08 59 56" src="https://github.com/user-attachments/assets/708d9bed-e247-4070-9b27-4f12f3c482b8" />
+<img width="908" alt="Снимок экрана 2025-07-03 в 11 32 06" src="https://github.com/user-attachments/assets/ede6f2c7-30de-45ba-8604-0707c9cfec08" />
 
 Скрипт генерации календаря указанного года в формате html. Диапазон от 2000 до 2099 года.
 Синтаксис следующий:
