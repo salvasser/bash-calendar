@@ -15,7 +15,7 @@ while (($#>0)); do
         shift
         year=$1
         [[ -z $year ]] && { DOC >&2; exit; }
-    elif [[ ${#1} > 2 && ${1:0:2} == "-y" ]]; then
+    elif [[ $((${#1} > 2)) && ${1:0:2} == "-y" ]]; then
         year=${1#-y}
     elif [[ $1 == "-x8" ]]; then  # прикол-режим
         mode=oct
@@ -35,7 +35,7 @@ done
 ((year>2099)) && year=$(printf '%(%Y)T')
 
 ### проверяем название файла
-if [[ (($# < 1)) || "${outFile##*.}" != "html" ]]; then
+if [[ $(($# < 1)) || "${outFile##*.}" != "html" ]]; then
     outFile="/tmp/${year}.html"
     printf "%s\n" "Некорректный формат файла или он отстуствует. Вывод осуществляется в $outFile"
 fi
@@ -102,7 +102,7 @@ for ((initMonth=1;initMonth<=12;initMonth++)); do
         printf "\n\t%s\n" "$tableStr" >> "$outFile" # начало строки
         for ((j=1;j<8;j++)); do
             out=$curDay
-            [[ $i == 0 && $j < $day ]] && { out=""; printf "%s %s %s\n" "$cell" "$out" "$cellClose" >> "$outFile"; continue; } ### если есть прикол-режим, то пустые строки выводим отдельно
+            [[ $i == 0 && $((j < day)) ]] && { out=""; printf "%s %s %s\n" "$cell" "$out" "$cellClose" >> "$outFile"; continue; } ### если есть прикол-режим, то пустые строки выводим отдельно
             printf $outFormat "$cell" "$out" "$cellClose" >> "$outFile"
             ((curDay == daysInMonth)) && break 2
             ((curDay++))
